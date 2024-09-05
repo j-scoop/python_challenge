@@ -1,3 +1,4 @@
+import re
 from info import four_text
 
 
@@ -5,6 +6,7 @@ in_str = four_text.source
 length = len(in_str)
 out_str = ''
 
+# Initial attempt using for loops
 # Convert input string into list separated at newlines
 in_list = in_str.splitlines()
 
@@ -30,8 +32,17 @@ for string_num, current_string in enumerate(in_list):
                             if current_string[i+5].isupper():
                                 if current_string[i+6].isupper():
 
+                                    # Does it have to have lowercase either side?
                                     if current_string[i+-1].islower():
                                         if current_string[i+7].islower():
                                             out_str += current_string[i+3]
 
-print(out_str)
+print(f'{out_str=}')
+
+# Attempt using regex
+pattern = r'[a-z][A-Z]{3}([a-z])[A-Z]{3}[a-z]'
+middle_letters = re.findall(pattern, in_str)
+
+out_str_regex = ''.join(middle_letters)
+
+print(f'{out_str_regex=}')
