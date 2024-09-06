@@ -10,12 +10,13 @@ source_string = "g fmnc wms bgblr rpylqjyrc gr zw fylb. rfyrq ufyr amknsrcpq ypc
 # O -> Q
 # E -> G
 
+
 def translate(in_string):
     alpha_chars = string.ascii_lowercase
     alpha_shifted = alpha_chars[2:] + alpha_chars[:2]
 
-    print(f'{alpha_chars=}')
-    print(f'{alpha_shifted=}')
+    print(f"{alpha_chars=}")
+    print(f"{alpha_shifted=}")
 
     map_table = in_string.maketrans(alpha_chars, alpha_shifted)
 
@@ -28,5 +29,5 @@ def main():
     print(translate(source_string))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

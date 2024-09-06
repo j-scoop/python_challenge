@@ -5,9 +5,10 @@ from data.level_3_text import source as in_str
 
 # level url: http://www.pythonchallenge.com/pc/def/equality.html
 
+
 # Initial attempt using for loops. Yes it gets ugly.
 def three_looped():
-    out_str = ''
+    out_str = ""
 
     # Convert input string into list separated at newlines
     in_list = in_str.splitlines()
@@ -25,29 +26,29 @@ def three_looped():
             if i + 7 >= list_length:
                 continue
             if current_string[i].isupper():
-                if current_string[i+1].isupper():
-                    if current_string[i+2].isupper():
+                if current_string[i + 1].isupper():
+                    if current_string[i + 2].isupper():
 
-                        if current_string[i+3].islower():
+                        if current_string[i + 3].islower():
 
-                            if current_string[i+4].isupper():
-                                if current_string[i+5].isupper():
-                                    if current_string[i+6].isupper():
+                            if current_string[i + 4].isupper():
+                                if current_string[i + 5].isupper():
+                                    if current_string[i + 6].isupper():
 
                                         # Does it have to have lowercase either side?
-                                        if current_string[i+-1].islower():
-                                            if current_string[i+7].islower():
-                                                out_str += current_string[i+3]
+                                        if current_string[i + -1].islower():
+                                            if current_string[i + 7].islower():
+                                                out_str += current_string[i + 3]
 
     return out_str
 
 
 def three_regex():
     # Attempt using regex
-    pattern = r'[a-z][A-Z]{3}([a-z])[A-Z]{3}[a-z]'
+    pattern = r"[a-z][A-Z]{3}([a-z])[A-Z]{3}[a-z]"
     middle_letters = re.findall(pattern, in_str)
 
-    out_str = ''.join(middle_letters)
+    out_str = "".join(middle_letters)
 
     return out_str
 
@@ -59,5 +60,5 @@ def main():
     print(f"Regex answer: {three_regex()}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
