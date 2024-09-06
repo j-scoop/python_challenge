@@ -17,7 +17,4 @@ print(f'{y=}')
 
 map_table = in_string.maketrans(x, y)
 
-# out_string = in_string.translate(map_table)
 print(in_string.translate(map_table))
-
-# Apply translation to 'map' in url, gives http://www.pythonchallenge.com/pc/def/ocr.html
