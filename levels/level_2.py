@@ -1,8 +1,9 @@
 from collections import Counter
-from data.two_text import source_str
+from data.level_2_text import source_str
 
 
-level_url = 'http://www.pythonchallenge.com/pc/def/ocr.html'
+# level url: http://www.pythonchallenge.com/pc/def/ocr.html
+
 out_str = ''
 
 # Try finding the characters that occur least in the source
