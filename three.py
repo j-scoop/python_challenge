@@ -1,8 +1,7 @@
 import re
-from info import four_text
+from data.three_text import source as in_str
 
 
-in_str = four_text.source
 length = len(in_str)
 out_str = ''
 
