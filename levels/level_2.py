@@ -4,13 +4,22 @@ from data.level_2_text import source_str
 
 # level url: http://www.pythonchallenge.com/pc/def/ocr.html
 
-out_str = ''
-
 # Try finding the characters that occur least in the source
-c = Counter(source_str)
+def find_rare_chars():
+    out_str = ''
 
-for char, count in c.most_common():
-    if count == 1:
-        out_str += char
+    counted = Counter(source_str)
 
-print(f'{out_str=}')
+    for char, count in counted.most_common():
+        if count == 1:
+            out_str += char
+
+    return out_str
+
+
+def main():
+    print(find_rare_chars())
+
+
+if __name__ == '__main__':
+    main()
