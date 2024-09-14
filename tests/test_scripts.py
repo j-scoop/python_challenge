@@ -8,7 +8,9 @@ class TestScriptsRun(unittest.TestCase):
     def run_script(self, script_name):
         command = ["python", "-m", script_name]
         result = subprocess.run(command, capture_output=True, text=True)
-        self.assertEqual(result.returncode, 0, msg=f"Script {script_name} failed: {result.stderr}")
+        self.assertEqual(
+            result.returncode, 0, msg=f"Script {script_name} failed: {result.stderr}"
+        )
 
     def test_levels(self):
         """
@@ -33,5 +35,5 @@ class TestScriptsRun(unittest.TestCase):
             sys.stdout.flush()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
