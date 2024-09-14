@@ -1,4 +1,4 @@
-from urllib import request
+from urllib import request  # hint suggested urllib instead of requests
 import re
 import sys
 
