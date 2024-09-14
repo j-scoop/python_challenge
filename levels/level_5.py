@@ -14,14 +14,14 @@ image_path = Path("data/banner.p")
 
 def pickle_image(img_path):
 
-    with open(img_path, 'rb') as f:
+    with open(img_path, "rb") as f:
 
         unpickled = pickle.load(f, fix_imports=True)
         # print(f"{unpickled=}")
 
         for list in unpickled:
             for char, num in list:
-                print(char * num, end='')
+                print(char * num, end="")
             print()
 
 
