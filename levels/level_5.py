@@ -9,7 +9,7 @@ from pathlib import Path
 # Peak hell == pickle?
 
 # Try pickle/unpicke level image
-image_path = Path("data/banner.p")
+image_path = Path("data/level_5/banner.p")
 
 
 def pickle_image(img_path):

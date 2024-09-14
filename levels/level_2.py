@@ -1,5 +1,5 @@
 from collections import Counter
-from data.level_2_text import source_str
+from data.level_2.level_2_text import source_str
 
 
 # level url: http://www.pythonchallenge.com/pc/def/ocr.html
