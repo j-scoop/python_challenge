@@ -1,6 +1,5 @@
 from pathlib import Path
 import re
-import sys
 import os
 import zipfile
 
@@ -9,11 +8,15 @@ import zipfile
 # Dowload zip file at www.pythonchallenge.com/pc/def/channel.zip
 # Hints
 # From data/channel/readme.txt:
-# hint1: start from 90052
-# hint2: answer is inside the zip
+# hint1: "start from 90052"
+# hint2: "answer is inside the zip"
 
 # Loop stops at 46145.txt text below:
 # Collect the comments.
+
+# NOTE: Final hint when inputting the output of this level in the url:
+# "it's in the air. look at the letters."
+# i.e. the level is not solved yet, check the output again!
 
 INITIAL_FILE_KEY = 90052
 
