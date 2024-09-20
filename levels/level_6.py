@@ -35,29 +35,35 @@ def get_zip_comment(zip_file_path):
     zip_file = zipfile.ZipFile(zip_file_path)
     infolist = zip_file.infolist()
     for info in infolist:
-        file_comments[info.filename] = str(info.comment, "utf-8")
+        file_key = info.filename[:-4]
+        file_comments[file_key] = str(info.comment, "utf-8")
 
     return file_comments
 
 
-def traverse_files(file_key):
+def traverse_files(file_key, file_comments):
 
     # Search for digits at end of string
     pattern = r"\d+$"
 
     filepath = Path(f"data/level_6/channel/{file_key}.txt")
 
+    output = ""
+
     while True:
         with open(filepath, "r") as f:
             for line in f:
                 m = re.search(pattern, line)
                 if m:
-                    print(line)
+                    # print(line)
                     file_key = m.group(0)
                     filepath = Path(f"data/level_6/channel/{file_key}.txt")
+
+                    output += file_comments[file_key]
+
                 else:
                     print(f"Failed to find the next key. Page text: {line}")
-                    sys.exit()
+                    return output
 
 
 def main():
@@ -65,8 +71,9 @@ def main():
 
     path = Path("data/level_6/channel.zip")
 
-    output = get_zip_comment(path)
-    print(output)
+    file_comments = get_zip_comment(path)
+    answer = traverse_files(file_key, file_comments)
+    print(answer)
 
 
 if __name__ == "__main__":
