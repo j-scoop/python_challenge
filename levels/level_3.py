@@ -1,6 +1,6 @@
 import re
 
-from data.level_3_text import source as in_str
+from data.level_3.level_3_text import source as in_str
 
 
 # level url: http://www.pythonchallenge.com/pc/def/equality.html
