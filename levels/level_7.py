@@ -28,13 +28,16 @@ def process_image(img_path):
             print(f"{key=}, {value=}")
 
         # Loop over pixels and find grey ones
+        # Only loop over the middle row
+        y_middle = height / 2
         for x in range(width):
-            for y in range(height):
-                r, g, b, a = im.getpixel((x, y))
-                if r == g == b:
-                    # print(r, g, b, a)          
-                    if r not in grey_pixels:
-                        grey_pixels.append(r)
+            # for y in range(height):
+            r, g, b, a = im.getpixel((x, y_middle))
+            if r == g == b:
+                # print(r, g, b, a)          
+                # if r not in grey_pixels:
+                if (r, g, b, a) != im.getpixel((x+1, y_middle)):
+                    grey_pixels.append(r)
                
         print(f"{grey_pixels=}")
 
