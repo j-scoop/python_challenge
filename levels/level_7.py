@@ -14,6 +14,7 @@ def process_image(img_path):
     Process an image and get value of grey pixels
     """   
 
+    all_grey_pixels = []
     grey_pixels = []
 
     with Image.open(img_path) as im:
@@ -34,6 +35,7 @@ def process_image(img_path):
             # for y in range(height):
             r, g, b, a = im.getpixel((x, y_middle))
             if r == g == b:
+                all_grey_pixels.append(r)
                 # print(r, g, b, a)          
                 # if r not in grey_pixels:
                 if (r, g, b, a) != im.getpixel((x+1, y_middle)):
@@ -44,6 +46,21 @@ def process_image(img_path):
         # convert to unicode chars
         for pixel in grey_pixels:
             print(chr(pixel), end="")
+        print()
+
+        for pixel in all_grey_pixels:
+            print(chr(pixel), end="")
+        print()
+
+        ouptut_list = [105, 110, 116, 101, 103, 114, 105, 116, 121]
+
+        for num in ouptut_list:
+            print(chr(all_grey_pixels[num]), end="")
+        print()
+
+        for num in ouptut_list:
+            print(chr(num), end="")
+
 
 
 def main():
