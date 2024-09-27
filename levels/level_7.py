@@ -9,10 +9,11 @@ from PIL import Image
 
 IMAGE_PATH = Path("data/level_7/oxygen.png")
 
+
 def process_image(img_path):
     """
     Process an image and get value of grey pixels
-    """   
+    """
 
     all_grey_pixels = []
     grey_pixels = []
@@ -36,11 +37,11 @@ def process_image(img_path):
             r, g, b, a = im.getpixel((x, y_middle))
             if r == g == b:
                 all_grey_pixels.append(r)
-                # print(r, g, b, a)          
+                # print(r, g, b, a)
                 # if r not in grey_pixels:
-                if (r, g, b, a) != im.getpixel((x+1, y_middle)):
+                if (r, g, b, a) != im.getpixel((x + 1, y_middle)):
                     grey_pixels.append(r)
-               
+
         print(f"{grey_pixels=}")
 
         # convert to unicode chars
@@ -60,7 +61,6 @@ def process_image(img_path):
 
         for num in ouptut_list:
             print(chr(num), end="")
-
 
 
 def main():
