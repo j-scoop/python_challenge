@@ -6,7 +6,7 @@ import sys
 class TestScriptsRun(unittest.TestCase):
 
     def run_script(self, script_name):
-        command = ["python", "-m", script_name]
+        command = ["poetry", "run", "python", "-m", script_name]
         result = subprocess.run(command, capture_output=True, text=True)
         self.assertEqual(
             result.returncode, 0, msg=f"Script {script_name} failed: {result.stderr}"
@@ -25,6 +25,7 @@ class TestScriptsRun(unittest.TestCase):
             "levels.level_5",
             "levels.level_6",
             "levels.level_7",
+            "levels.level_8",
         ]
 
         for script in scripts:
