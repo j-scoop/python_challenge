@@ -119,7 +119,7 @@ def parse_data():
     # Plot looks like a bull upside down: solved!
     plt.plot(second_x_coords, second_y_coords)
     # plt.plot(x_coords, y_coords)
-    plt.show()
+    # plt.show()
 
 
 def main():
