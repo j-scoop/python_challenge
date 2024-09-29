@@ -45,6 +45,7 @@ second:
 """
 
 # FIRST starts & ends with 146, 399. Closed loop - try connecting the dots?
+# fmt:off
 FIRST = [146,399,163,403,170,393,169,391,166,386,170,381,170,371,170,355,169,346,167,335,170,329,170,320,170,
 310,171,301,173,290,178,289,182,287,188,286,190,286,192,291,194,296,195,305,194,307,191,312,190,316,
 190,321,192,331,193,338,196,341,197,346,199,352,198,360,197,366,197,373,196,380,197,383,196,387,192,
@@ -70,8 +71,10 @@ SECOND = [156,141,165,135,169,131,176,130,187,134,191,140,191,146,186,150,179,15
 125,217,119,209,116,196,115,185,114,172,114,167,112,161,109,165,107,170,99,171,97,167,89,164,81,162,
 77,155,81,148,87,140,96,138,105,141,110,136,111,126,113,129,118,117,128,114,137,115,146,114,155,115,
 158,121,157,128,156,134,157,136,156,136]
+# fmt:on
 
 # page title: "connect the dots"
+
 
 def parse_data():
     print(f"{len(FIRST)=}")
@@ -85,22 +88,22 @@ def parse_data():
         print(f"{summed=}")
 
         coordinates.append((first, second))
-    
+
     print(f"{coordinates=}")
 
     # Maybe the lists have coordinates like [x, y, x, y, x, y...]
     for i in range(len(FIRST), 2):
         print(i)
-    
+
     x_coords = []
     y_coords = []
 
     for x in FIRST[::2]:
         x_coords.append(x)
-    
+
     for y in FIRST[1::2]:
         y_coords.append(y)
-    
+
     print(x_coords)
     print(y_coords)
 
@@ -109,15 +112,14 @@ def parse_data():
 
     for x in SECOND[::2]:
         second_x_coords.append(x)
-    
+
     for y in SECOND[1::2]:
         second_y_coords.append(y)
-    
+
     # Plot looks like a bull upside down: solved!
     plt.plot(second_x_coords, second_y_coords)
     # plt.plot(x_coords, y_coords)
     plt.show()
-
 
 
 def main():
