@@ -16,6 +16,9 @@ def pickle_image(img_path):
 
     with open(img_path, "rb") as f:
 
+        # If the below results in "_pickle.UnpicklingError", 
+        # banner.p line endings probably changed to CRLF - to fix,
+        # change back to LF and save the file
         unpickled = pickle.load(f, fix_imports=True)
         # print(f"{unpickled=}")
 
