@@ -17,6 +17,7 @@
 # Followed by appending the character
 # Move to the next character
 
+
 def sequencer():
     num = 1
     num_str = str(num)
@@ -30,7 +31,7 @@ def sequencer():
             if j + 1 == len(num_str):
                 next_num_str += str(char_counter) + num_str[j]
                 char_counter = 1
-            elif num_str[j] == num_str[j+1]:
+            elif num_str[j] == num_str[j + 1]:
                 char_counter += 1
             else:
                 next_num_str += str(char_counter) + num_str[j]
