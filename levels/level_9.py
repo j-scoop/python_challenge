@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 
 
+# level url: http://www.pythonchallenge.com/pc/return/good.html
+
 """
 <!--
 To see the solutions to the previous level, replace pc with pcc and add :un:pw
