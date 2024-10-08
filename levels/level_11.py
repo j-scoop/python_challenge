@@ -14,11 +14,14 @@ IMAGE_PATH = Path("data/level_11/cave.jpg")
 OUTPUT_PATH = Path("data/level_11/output.jpg")
 
 
-def process_image(img_path):
+def is_even(num: int):
+    if num % 2:
+        return False
+    else:
+        return True
 
-    print(f"{0 % 2=}")
-    print(f"{1 % 2=}")
-    print(f"{2 % 2=}")
+
+def process_image(img_path):
 
     with Image.open(img_path) as im:
 
@@ -44,16 +47,10 @@ def process_image(img_path):
             for y in range(height):
                 pixel = pixels[x, y]
 
-                # When x is odd and y is even
-                if x % 2 and not y % 2:
+                if not is_even(x) and not is_even(y):
                     output_pixels[int(x/2), int(y/2)] = pixel
-                # OR, when x is even and y is odd
-                elif not x % 2 and y % 2:
+                elif is_even(x) and is_even(y):
                     output_pixels[int(x/2), int(y/2)] = pixel
-                    # output_pixels[x, y] = pixel
-                else:
-                    output_pixels[int(x/2), int(y/2)] = pixel
-
 
         output_image.save(OUTPUT_PATH)
 
