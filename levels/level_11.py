@@ -12,6 +12,7 @@ from PIL import Image
 
 IMAGE_PATH = Path("data/level_11/cave.jpg")
 OUTPUT_PATH = Path("data/level_11/output.jpg")
+OUTPUT_PATH_2 = Path("data/level_11/output_2.jpg")
 
 
 def is_even(num: int):
@@ -38,9 +39,13 @@ def process_image(img_path):
 
         # Create a new blank image with the same size and mode as the input image
         output_image = Image.new(im.mode, (int(width / 2), int(height / 2)))
-
         # Load the new image's pixel data
         output_pixels = output_image.load()
+
+        # Create a new blank image with the same size and mode as the input image
+        output_image_2 = Image.new(im.mode, (int(width / 2), int(height / 2)))
+        # Load the new image's pixel data
+        output_pixels_2 = output_image_2.load()
 
         # Loop over pixels and store odd/even separately
         for x in range(width):
@@ -51,8 +56,11 @@ def process_image(img_path):
                     output_pixels[int(x / 2), int(y / 2)] = pixel
                 elif is_even(x) and is_even(y):
                     output_pixels[int(x / 2), int(y / 2)] = pixel
+                else:
+                    output_pixels_2[int(x / 2), int(y / 2)] = pixel
 
         output_image.save(OUTPUT_PATH)
+        output_image_2.save(OUTPUT_PATH_2)
 
 
 def main():
