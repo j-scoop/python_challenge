@@ -37,7 +37,7 @@ def process_image(img_path):
         pixels = im.load()
 
         # Create a new blank image with the same size and mode as the input image
-        output_image = Image.new(im.mode, (int(width/2), int(height/2)))
+        output_image = Image.new(im.mode, (int(width / 2), int(height / 2)))
 
         # Load the new image's pixel data
         output_pixels = output_image.load()
@@ -48,9 +48,9 @@ def process_image(img_path):
                 pixel = pixels[x, y]
 
                 if not is_even(x) and not is_even(y):
-                    output_pixels[int(x/2), int(y/2)] = pixel
+                    output_pixels[int(x / 2), int(y / 2)] = pixel
                 elif is_even(x) and is_even(y):
-                    output_pixels[int(x/2), int(y/2)] = pixel
+                    output_pixels[int(x / 2), int(y / 2)] = pixel
 
         output_image.save(OUTPUT_PATH)
 
