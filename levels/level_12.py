@@ -19,7 +19,7 @@ IMAGE_PATH_1 = Path("data/level_12/evil1.jpg")
 IMAGE_PATH_2 = Path("data/level_12/evil2.jpg")
 IMAGE_PATH_3 = Path("data/level_12/evil3.jpg")
 IMAGE_PATH_4 = Path("data/level_12/bert.gif")
-GFX_PATH = Path("data/evil2.gfx")
+GFX_PATH = Path("data/level_12/evil2.gfx")
 
 OUTPUT_PATH_1 = Path("data/output_1.jpg")
 OUTPUT_PATH_2 = Path("data/output_2.jpg")
@@ -40,6 +40,51 @@ def download_image(url, save_path):
 
     else:
         print(f"Failed to download image. Status code: {response.status_code}")
+
+
+def parse_gfx(gfx_path):
+    with open(gfx_path, "rb") as f:
+        # Level image is someone dealing 5 sets of cards - lets try 'dealing' the bytes into 5 'piles'
+        data = f.read()
+        print(f"{len(data)=}")
+        # for line in f:
+        #     print(line)
+
+        # print(f"{data=}")
+
+        of1 = open(Path("data/level_12/output_1.jpg"), "ab")
+        of2 = open(Path("data/level_12/output_2.jpg"), "ab")
+        of3 = open(Path("data/level_12/output_3.jpg"), "ab")
+        of4 = open(Path("data/level_12/output_4.jpg"), "ab")
+        of5 = open(Path("data/level_12/output_5.jpg"), "ab")
+
+        counter = 0
+        for i in range(len(data)):
+            if counter == 0:
+                of1.write(bytes(data[i]))
+            if counter == 1:
+                of2.write(bytes(data[i]))
+            if counter == 2:
+                of3.write(bytes(data[i]))
+            if counter == 3:
+                of4.write(bytes(data[i]))
+            if counter == 4:
+                of5.write(bytes(data[i]))
+
+            counter += 1
+            if counter == 5:
+                counter = 0
+
+        # for key, value in cards.items():
+        #     output_file = Path(f"data/level_12/output_{key}.jpg")
+        #     with open(output_file, "wb") as of:
+        #         of.write(value)
+
+        of1.close()
+        of2.close()
+        of3.close()
+        of4.close()
+        of5.close()
 
 
 def process_image(img_path1, img_path2, img_path3):
@@ -83,8 +128,8 @@ def process_image(img_path1, img_path2, img_path3):
 
                 # Loop over pixels and write to output
                 counter = 0
-                for x in range(width):
-                    for y in range(height):
+                for y in range(height):
+                    for x in range(width):
                         pixel_1 = pixels_1[x, y]
                         pixel_2 = pixels_2[x, y]
                         pixel_3 = pixels_3[x, y]
@@ -114,7 +159,9 @@ def main():
 
     # download_image(EVIL_4_IMAGE_URL, Path("data/level_12/evil4.jpg"))
 
-    process_image(IMAGE_PATH_1, IMAGE_PATH_2, IMAGE_PATH_3)
+    # process_image(IMAGE_PATH_1, IMAGE_PATH_2, IMAGE_PATH_3)
+
+    parse_gfx(GFX_PATH)
 
 
 if __name__ == "__main__":
