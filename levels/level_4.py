@@ -21,8 +21,8 @@ url_key = "8022"  # 2nd URL
 # Failed to find the next key. Page body: peak.html
 
 
-def traverse_url(url_key):
-    for i in range(400):
+def traverse_url(url_key: str, num_items: int):
+    for i in range(num_items):
         url = f"http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing={url_key}"
         print(f"{url=}")
 
@@ -41,7 +41,8 @@ def traverse_url(url_key):
 
 
 def main():
-    traverse_url(url_key)
+    # traverse_url(url_key, 400)
+    traverse_url(url_key, 5)  # reduced to 5 for unit tests
 
 
 if __name__ == "__main__":
