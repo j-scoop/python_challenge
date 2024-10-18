@@ -50,26 +50,27 @@ def parse_gfx(gfx_path):
         # for line in f:
         #     print(line)
 
-        # print(f"{data=}")
+        print(f"{data=}")
+        print(f"{data[0]}")
 
-        of1 = open(Path("data/level_12/output_1.jpg"), "ab")
-        of2 = open(Path("data/level_12/output_2.jpg"), "ab")
-        of3 = open(Path("data/level_12/output_3.jpg"), "ab")
-        of4 = open(Path("data/level_12/output_4.jpg"), "ab")
-        of5 = open(Path("data/level_12/output_5.jpg"), "ab")
+        of1 = open(Path("data/level_12/output_1.jpg"), "wb")
+        of2 = open(Path("data/level_12/output_2.jpg"), "wb")
+        of3 = open(Path("data/level_12/output_3.jpg"), "wb")
+        of4 = open(Path("data/level_12/output_4.jpg"), "wb")
+        of5 = open(Path("data/level_12/output_5.jpg"), "wb")
 
         counter = 0
         for i in range(len(data)):
             if counter == 0:
-                of1.write(bytes(data[i]))
-            if counter == 1:
-                of2.write(bytes(data[i]))
-            if counter == 2:
-                of3.write(bytes(data[i]))
-            if counter == 3:
-                of4.write(bytes(data[i]))
-            if counter == 4:
-                of5.write(bytes(data[i]))
+                of1.write(bytes([data[i]]))
+            elif counter == 1:
+                of2.write(bytes([data[i]]))
+            elif counter == 2:
+                of3.write(bytes([data[i]]))
+            elif counter == 3:
+                of4.write(bytes([data[i]]))
+            else:
+                of5.write(bytes([data[i]]))
 
             counter += 1
             if counter == 5:
