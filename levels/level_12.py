@@ -1,5 +1,4 @@
 from pathlib import Path
-from PIL import Image
 import requests
 
 
@@ -47,11 +46,9 @@ def parse_gfx(gfx_path):
         # Level image is someone dealing 5 sets of cards - lets try 'dealing' the bytes into 5 'piles'
         data = f.read()
         print(f"{len(data)=}")
-        # for line in f:
-        #     print(line)
 
-        print(f"{data=}")
-        print(f"{data[0]}")
+        # print(f"{data=}")
+        # print(f"{data[0]}")
 
         of1 = open(Path("data/level_12/output_1.jpg"), "wb")
         of2 = open(Path("data/level_12/output_2.jpg"), "wb")
@@ -76,11 +73,6 @@ def parse_gfx(gfx_path):
             if counter == 5:
                 counter = 0
 
-        # for key, value in cards.items():
-        #     output_file = Path(f"data/level_12/output_{key}.jpg")
-        #     with open(output_file, "wb") as of:
-        #         of.write(value)
-
         of1.close()
         of2.close()
         of3.close()
@@ -88,79 +80,9 @@ def parse_gfx(gfx_path):
         of5.close()
 
 
-def process_image(img_path1, img_path2, img_path3):
-
-    with Image.open(img_path1) as im1:
-
-        with Image.open(img_path2) as im2:
-
-            with Image.open(img_path3) as im3:
-
-                pixels_1 = im1.load()
-                pixels_2 = im2.load()
-                pixels_3 = im3.load()
-
-                # What metadata can we get from the image?
-                width, height = im1.size
-                print(im1.format, im1.size, im1.mode)
-
-                output_image_1 = Image.new(im1.mode, (width, height))
-                output_pixels_1 = output_image_1.load()
-
-                output_image_2 = Image.new(im1.mode, (width, height))
-                output_pixels_2 = output_image_2.load()
-
-                output_image_3 = Image.new(im1.mode, (width, height))
-                output_pixels_3 = output_image_3.load()
-
-                metadata = im1.info
-                for key, value in metadata.items():
-                    print(f"{key=}, {value=}")
-
-                exif_data = im1.getexif()
-                # print(f"{exif_data=}")
-
-                if exif_data:
-                    print("There is exif data")
-                    for key, item in exif_data.items():
-                        print(f"{key}: {item}")
-                else:
-                    print("There is no exif data")
-
-                # Loop over pixels and write to output
-                counter = 0
-                for y in range(height):
-                    for x in range(width):
-                        pixel_1 = pixels_1[x, y]
-                        pixel_2 = pixels_2[x, y]
-                        pixel_3 = pixels_3[x, y]
-                        # Get every 3rd pixel
-                        if counter == 0:
-                            output_pixels_1[x, y] = pixel_1
-                            output_pixels_2[x, y] = pixel_2
-                            output_pixels_3[x, y] = pixel_3
-                        elif counter == 1:
-                            output_pixels_1[x, y] = pixel_2
-                            output_pixels_2[x, y] = pixel_3
-                            output_pixels_3[x, y] = pixel_1
-                        else:
-                            output_pixels_1[x, y] = pixel_3
-                            output_pixels_2[x, y] = pixel_1
-                            output_pixels_3[x, y] = pixel_2
-                        counter += 1
-                        if counter == 3:
-                            counter = 0
-
-                output_image_1.save(OUTPUT_PATH_1)
-                output_image_2.save(OUTPUT_PATH_2)
-                output_image_3.save(OUTPUT_PATH_3)
-
-
 def main():
 
     # download_image(EVIL_4_IMAGE_URL, Path("data/level_12/evil4.jpg"))
-
-    # process_image(IMAGE_PATH_1, IMAGE_PATH_2, IMAGE_PATH_3)
 
     parse_gfx(GFX_PATH)
 
