@@ -1,5 +1,6 @@
 import requests
-# import xmlrpc.client  # I believe this is the intended library but it doesn't work
+# I believe xmlrpc is the intended library but it doesn't work
+# import xmlrpc.client
 
 
 # level url: http://www.pythonchallenge.com/pc/return/disproportional.html
@@ -14,20 +15,20 @@ import requests
 # Or, to type exactly, press: "33, 888, 444, 555"
 # Maybe we post either of these numbers to the phonebook xml?
 
-PHONE_NUMBER = 3845
-XML_URL = "http://www.pythonchallenge.com/pc/phonebook.php"
+# From the previous level, Bert is evil - maybe we call him?
 
-# Think we need to 'post' to the xml url?
+EVIL = "Bert"
+XML_URL = "http://www.pythonchallenge.com/pc/phonebook.php"
 
 
 def parse_xml(url):
 
-    xml_request = """<?xml version="1.0"?>
+    xml_request = f"""<?xml version="1.0"?>
     <methodCall>
     <methodName>phone</methodName>
     <params>
         <param>
-            <value><string>Bert</string></value>
+            <value><string>{EVIL}</string></value>
         </param>
     </params>
     </methodCall>
@@ -42,6 +43,7 @@ def parse_xml(url):
     if response.status_code == 200:
         print(response.content)
 
+    # Failing xmlrpc implementation below:
     # with xmlrpc.client.ServerProxy(url) as client:
 
     #     try:
