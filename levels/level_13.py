@@ -1,4 +1,5 @@
 import requests
+
 # I believe xmlrpc is the intended library but it doesn't work
 # import xmlrpc.client
 
@@ -35,9 +36,7 @@ def parse_xml(url):
     """
 
     response = requests.post(
-        url,
-        data=xml_request,
-        headers={"Content-Type": "text/xml"}
+        url, data=xml_request, headers={"Content-Type": "text/xml"}
     )
 
     if response.status_code == 200:
