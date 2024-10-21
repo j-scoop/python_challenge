@@ -79,7 +79,7 @@ def uzumaki(img_path):
 
         # As we spiral round, we'll need to limit the length of the line being written
         limits = {
-            "upper": 0,
+            "upper": 1,
             "lower": 99,
             "left": 0,
             "right": 99
@@ -97,6 +97,7 @@ def uzumaki(img_path):
                     output_pixels[out_x, out_y] = pixel
                     out_x += 1
                 else:
+                    print(f"{out_x=}")
                     # We've reached the end, write the pixel,
                     # decrease the right limit & change direction
                     output_pixels[out_x, out_y] = pixel
@@ -106,7 +107,7 @@ def uzumaki(img_path):
                     # We are finished with the row, so increment y
                     out_y += 1
 
-            if direction == "down":
+            elif direction == "down":
                 if out_y < limits["lower"]:
                     output_pixels[out_x, out_y] = pixel
                     out_y += 1
@@ -119,7 +120,7 @@ def uzumaki(img_path):
                     # Finished with this row, de-increment x
                     out_x -= 1
 
-            if direction == "left":
+            elif direction == "left":
                 if out_x > limits["left"]:
                     output_pixels[out_x, out_y] = pixel
                     out_x -= 1
@@ -131,7 +132,7 @@ def uzumaki(img_path):
                     # Finished with this row, deincrement y
                     out_y -= 1
 
-            if direction == "up":
+            else:
                 if out_y > limits["upper"]:
                     output_pixels[out_x, out_y] = pixel
                     out_y -= 1
