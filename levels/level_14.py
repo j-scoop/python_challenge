@@ -15,11 +15,14 @@ from PIL import Image
 
 # Let's try spiraling the pixels from the centre, or towards the centre
 
-WIRE_IMG_PATH = Path("data/level_14/wire.png")
-OUTPUT_IMG_PATH = Path("data/level_14/output_wire.png")
+WIRE_IMG_PATH = Path("data/level_14/input/wire.png")
+OUTPUT_IMG_PATH = Path("data/level_14/output/output_wire.png")
 
 
 def process_image(img_path):
+    """
+    This function doesn't solve the level, but it does output an image with a hint
+    """
 
     with Image.open(img_path) as im:
 
@@ -27,7 +30,6 @@ def process_image(img_path):
         width, height = im.size
 
         print(f"{width=}, {height=}")
-
         print(im.format, im.size, im.mode)
 
         metadata = im.info
@@ -46,7 +48,6 @@ def process_image(img_path):
         out_y = 0
         for x in range(width):
             pixel = pixels[x, 0]
-
             out_x = x % 99
 
             if counter < 99:
@@ -60,6 +61,9 @@ def process_image(img_path):
 
 
 def uzumaki(img_path):
+    """
+    This function sovles the level. Praise the spiral.
+    """
 
     with Image.open(img_path) as im:
         # What metadata can we get from the image?
