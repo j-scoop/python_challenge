@@ -14,6 +14,9 @@ from PIL import Image
 # bit.html says "you took the wrong curve."
 
 # Let's try spiraling the pixels from the centre, or towards the centre
+# uzumaki() function outputs an image of a cat
+# http://www.pythonchallenge.com/pc/return/cat.html
+# cat.html text: and its name is uzi. you'll hear from him later.
 
 WIRE_IMG_PATH = Path("data/level_14/input/wire.png")
 OUTPUT_IMG_PATH = Path("data/level_14/output/output_wire.png")
