@@ -26,6 +26,8 @@ def process_image(img_path):
         # What metadata can we get from the image?
         width, height = im.size
 
+        print(f"{width=}, {height=}")
+
         print(im.format, im.size, im.mode)
 
         metadata = im.info
@@ -45,9 +47,9 @@ def process_image(img_path):
         for x in range(width):
             pixel = pixels[x, 0]
 
-            out_x = x % 100
+            out_x = x % 99
 
-            if counter < 100:
+            if counter < 99:
                 output_pixels[out_x, out_y] = pixel
                 counter += 1
             else:
@@ -83,6 +85,8 @@ def uzumaki(img_path):
             "right": 99
         }
 
+        # When we change direction, we aren't starting from 0 on the new axis
+
         for x in range(width):
             pixel = pixels[x, 0]
             # Write each line by spiralling round the output image clockwise
@@ -99,6 +103,8 @@ def uzumaki(img_path):
                     limits["right"] -= 1
                     print(f"{limits['right']=}")
                     direction = "down"
+                    # We are finished with the row, so increment y
+                    out_y += 1
 
             if direction == "down":
                 if out_y < limits["lower"]:
@@ -110,6 +116,8 @@ def uzumaki(img_path):
                     output_pixels[out_x, out_y] = pixel
                     limits["lower"] -= 1
                     direction = "left"
+                    # Finished with this row, de-increment x
+                    out_x -= 1
 
             if direction == "left":
                 if out_x > limits["left"]:
@@ -120,6 +128,8 @@ def uzumaki(img_path):
                     output_pixels[out_x, out_y] = pixel
                     limits["left"] += 1
                     direction = "up"
+                    # Finished with this row, deincrement y
+                    out_y -= 1
 
             if direction == "up":
                 if out_y > limits["upper"]:
@@ -130,6 +140,8 @@ def uzumaki(img_path):
                     output_pixels[out_x, out_y] = pixel
                     limits["upper"] += 1
                     direction = "right"
+                    # Finished with this row, increment x
+                    out_x += 1
 
         output_image.save(OUTPUT_IMG_PATH)
 
