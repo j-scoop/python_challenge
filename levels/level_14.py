@@ -82,12 +82,7 @@ def uzumaki(img_path):
         direction = "right"
 
         # As we spiral round, we'll need to limit the length of the line being written
-        limits = {
-            "upper": 1,
-            "lower": 99,
-            "left": 0,
-            "right": 99
-        }
+        limits = {"upper": 1, "lower": 99, "left": 0, "right": 99}
 
         # When we change direction, we aren't starting from 0 on the new axis
 
