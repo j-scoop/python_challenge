@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import calendar
 
 
 # Level url: http://www.pythonchallenge.com/pc/return/uzi.html
@@ -21,6 +22,7 @@ from datetime import datetime, timedelta
 
 # Who was a king, 2nd of their name at this time? OR second youngest sibling at the time?
 
+# February 29th is on the calendar - leap year.
 
 def is_monday(date):
     return date.weekday() == 0
@@ -39,6 +41,10 @@ def year_match(date):
     return (year_str.startswith("1") or year_str.startswith("01") or year_str.startswith("001")) and year_str.endswith("6")
 
 
+def is_leap_year(year):
+    return calendar.isleap(year)
+
+
 def loop_over_dates(start_date, end_date):
     # Convert strings to datetime objects
     start_date = datetime.strptime(start_date, "%Y-%m-%d")
@@ -48,11 +54,13 @@ def loop_over_dates(start_date, end_date):
     current_date = start_date
 
     while current_date <= end_date:
-        if year_match(current_date):
-            if is_monday(current_date):
-                if is_january(current_date):
-                    if is_26th_of_month(current_date):
-                        print(current_date.strftime("%Y-%m-%d"))
+        year = current_date.year
+        if is_leap_year(year):
+            if year_match(current_date):
+                if is_monday(current_date):
+                    if is_january(current_date):
+                        if is_26th_of_month(current_date):
+                            print(current_date.strftime("%Y-%m-%d"))
         current_date += timedelta(days=1)
 
 
