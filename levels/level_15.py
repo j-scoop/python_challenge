@@ -24,6 +24,7 @@ import calendar
 # Second youngest (most recent) out of the possible dates is 1756-01-26
 # Any famous people associated with 1756-01-26/27?
 
+
 def is_monday(date):
     return date.weekday() == 0
 
@@ -38,7 +39,11 @@ def is_26th_of_month(date):
 
 def year_match(date):
     year_str = date.strftime("%Y")
-    return (year_str.startswith("1") or year_str.startswith("01") or year_str.startswith("001")) and year_str.endswith("6")
+    return (
+        year_str.startswith("1")
+        or year_str.startswith("01")
+        or year_str.startswith("001")
+    ) and year_str.endswith("6")
 
 
 def is_leap_year(year):
