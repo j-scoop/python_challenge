@@ -14,15 +14,15 @@ import calendar
 # <!-- he ain't the youngest, he is the second -->
 # <!-- todo: buy flowers for tomorrow -->
 
-# Reference to a King, second of his name?
 # Buy flowers for 27th Jan - what is this?
 
-# To determine the year, we need to find all dates where 26th Jan 
+# To determine the year, we need to find all dates where 26th Jan
 # Is a Monday, when the year starts with 1 and ends with 6
 
-# Who was a king, 2nd of their name at this time? OR second youngest sibling at the time?
-
 # February 29th is on the calendar - leap year.
+
+# Second youngest (most recent) out of the possible dates is 1756-01-26
+# Any famous people associated with 1756-01-26/27?
 
 def is_monday(date):
     return date.weekday() == 0
