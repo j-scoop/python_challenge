@@ -29,17 +29,11 @@ def process_image(img_path):
     This function doesn't solve the level, but it does output an image with a hint
     """
 
+    metadata = get_image_metadata(img_path)
+
+    width, height = metadata["size"]
+
     with Image.open(img_path) as im:
-
-        # What metadata can we get from the image?
-        width, height = im.size
-
-        print(f"{width=}, {height=}")
-        print(im.format, im.size, im.mode)
-
-        metadata = im.info
-        for key, value in metadata.items():
-            print(f"{key=}, {value=}")
 
         pixels = im.load()
 
@@ -70,11 +64,11 @@ def uzumaki(img_path):
     This function sovles the level. Praise the spiral.
     """
 
-    with Image.open(img_path) as im:
-        # What metadata can we get from the image?
-        width, height = im.size
+    metadata = get_image_metadata(img_path)
 
-        print(im.format, im.size, im.mode)
+    width, height = metadata["size"]
+
+    with Image.open(img_path) as im:
 
         pixels = im.load()
 
@@ -149,8 +143,6 @@ def uzumaki(img_path):
 
 
 def main():
-    get_image_metadata(WIRE_IMG_PATH)
-
     uzumaki(WIRE_IMG_PATH)
 
 

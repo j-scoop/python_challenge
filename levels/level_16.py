@@ -31,13 +31,15 @@ def get_adjusted_coordinate(x_coord, offset, limit):
 
 def straighten_pixels(img_path):
 
+    metadata = get_image_metadata(img_path)
+
+    width, height = metadata["size"]
+
     with Image.open(img_path) as im:
 
         # Issue with image when in P mode
         if im.mode == "P":
             im = im.convert("RGB")
-
-        width, height = im.size
 
         pixels = im.load()
 
@@ -72,8 +74,6 @@ def straighten_pixels(img_path):
 
 
 def main():
-    get_image_metadata(IMAGE_PATH)
-
     straighten_pixels(IMAGE_PATH)
 
 

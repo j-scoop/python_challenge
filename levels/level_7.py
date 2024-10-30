@@ -18,11 +18,13 @@ def process_image(img_path):
     Process an image and get value of grey pixels
     """
 
+    metadata = get_image_metadata(img_path)
+    width, height = metadata['size']
+
     all_grey_pixels = []
     grey_pixels = []
 
     with Image.open(img_path) as im:
-        width, height = im.size
 
         # Loop over pixels and find grey ones
         # Only loop over the middle row
@@ -42,8 +44,6 @@ def process_image(img_path):
 
 
 def main():
-    get_image_metadata(IMAGE_PATH)
-
     process_image(IMAGE_PATH)
 
 
