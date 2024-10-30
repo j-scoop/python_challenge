@@ -68,8 +68,6 @@ def straighten_pixels(img_path):
         output_image = Image.new(im.mode, (width, height))
         output_pixels = output_image.load()
 
-        x_offset = 0
-
         offset_values = {}
 
         # For each row of pixels, get the offset from the top row
@@ -98,10 +96,6 @@ def straighten_pixels(img_path):
                 current_offset = wrap_subtract_coords(x, offset_values[y], width)
                 output_pixels[x, y] = im.getpixel((current_offset, y))
 
-        print(f"{offset_values=}")
-
-        # Once we have the offset, loop over pixels again and adjust each row according to the offset
-
         output_image.save(OUTPUT_PATH)
 
 
@@ -109,10 +103,6 @@ def main():
     get_image_metadata(IMAGE_PATH)
 
     straighten_pixels(IMAGE_PATH)
-
-    x = wrap_subtract_coords(1, 480, 640)
-    print(f"{x=}")
-
 
 if __name__ == "__main__":
     main()
