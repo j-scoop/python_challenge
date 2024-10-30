@@ -12,7 +12,8 @@ def get_image_metadata(img_path):
 
         print(f"{im.format=}, {im.size=}, {im.mode=}")
 
-        print(f"{im.n_frames=}")
+        if im.format == "GIF":
+            print(f"{im.n_frames=}")
 
         metadata = im.info
         for key, value in metadata.items():
