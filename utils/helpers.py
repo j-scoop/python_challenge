@@ -8,7 +8,7 @@ def get_image_metadata(img_path):
         # What metadata can we get from the image?
         width, height = im.size
 
-        print(f'{width=}, {height=}')
+        print(f"{width=}, {height=}")
 
         print(f"{im.format=}, {im.size=}, {im.mode=}")
 
