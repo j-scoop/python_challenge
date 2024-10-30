@@ -41,14 +41,19 @@ def get_image_metadata(img_path):
             print(f"{key=}, {value=}")
 
 
-def wrap_subtract_coords(num, subtract, limit):
-    return (num - subtract) % limit
+def wrap_subtract_coords(x_coord, offset, limit):
+    return (x_coord - offset) % limit
+
+
+def is_match():
+    pass
 
 
 def straighten_pixels(img_path):
 
     with Image.open(img_path) as im:
 
+        # Issue with image when in P mode
         if im.mode == "P":
             im = im.convert("RGB")
 
@@ -69,27 +74,14 @@ def straighten_pixels(img_path):
 
         # For each row of pixels, get the offset from the top row
         for y in range(height):
-            pink = 0
             for x in range(width):
                 pixel = pixels[x, y]
-                r, g, b = pixels[x, y]
-                if y == 0:
-                    # Store the x coord of the first white pixel so we can align other rows to this
-                    if r == g == b:
-                        if pixels[x+1, y] == pixels[x+2, y] == pixels[x+3, y]:
-                            x_offset = x
-                            print(f"{x=}")
-                            print(f"{pixel=}")
-                            print(f"{pixels[x+1, y]=}")
-                            offset_values[y] = 0
 
-                else:
-                    if r == g == b and r > 245:
-                        # Handle end of row
-                        if x < 637:
-                            if pixels[x+1, y] == pixels[x+2, y] == pixels[x+3, y] == (255, 0, 255):
-                                current_offset = x_offset - x
-                                offset_values[y] = current_offset
+                # Handle end of row
+                if x < 637:
+                    if pixels[x+1, y] == (255, 0, 255):
+                        current_offset = -x
+                        offset_values[y] = current_offset
 
                 output_pixels[x, y] = pixel
 
@@ -100,16 +92,11 @@ def straighten_pixels(img_path):
         # print(f"{offset_values[459]=}")
 
         # For each row of pixels, get the offset from the top row
-        for y in range(height-1):
-            pink = 0
+        for y in range(height):
             for x in range(width):
-                pixel = pixels[x, y]
-                r, g, b = pixels[x, y]
-                if y == 0:
-                    output_pixels[x, y] = pixel
-                else:
-                    current_offset = wrap_subtract_coords(x, offset_values[y], width)
-                    output_pixels[x, y] = im.getpixel((current_offset, y))
+
+                current_offset = wrap_subtract_coords(x, offset_values[y], width)
+                output_pixels[x, y] = im.getpixel((current_offset, y))
 
         print(f"{offset_values=}")
 
@@ -122,6 +109,9 @@ def main():
     get_image_metadata(IMAGE_PATH)
 
     straighten_pixels(IMAGE_PATH)
+
+    x = wrap_subtract_coords(1, 480, 640)
+    print(f"{x=}")
 
 
 if __name__ == "__main__":
