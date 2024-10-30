@@ -19,7 +19,7 @@ def process_image(img_path):
     """
 
     metadata = get_image_metadata(img_path)
-    width, height = metadata['size']
+    width, height = metadata["size"]
 
     all_grey_pixels = []
     grey_pixels = []
