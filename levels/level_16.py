@@ -65,7 +65,7 @@ def straighten_pixels(img_path):
 
         x_offset = 0
 
-        offset_values = []
+        offset_values = {}
 
         # For each row of pixels, get the offset from the top row
         for y in range(height):
@@ -80,21 +80,27 @@ def straighten_pixels(img_path):
                             x_offset = x
                             print(f"{x=}")
                             print(f"{pixel=}")
-                            offset_values.append(0)
+                            print(f"{pixels[x+1, y]=}")
+                            offset_values[y] = 0
 
                 else:
-                    if r == g == b:
+                    if r == g == b and r > 245:
                         # Handle end of row
                         if x < 637:
-                            if pixels[x+1, y] == pixels[x+2, y] == pixels[x+3, y]:
+                            if pixels[x+1, y] == pixels[x+2, y] == pixels[x+3, y] == (255, 0, 255):
                                 current_offset = x_offset - x
-                                offset_values.append(current_offset)
-
+                                offset_values[y] = current_offset
 
                 output_pixels[x, y] = pixel
 
+            if offset_values.get(y) is None:
+                offset_values[y] = 0
+
+        print(f"{len(offset_values)=}")
+        # print(f"{offset_values[459]=}")
+
         # For each row of pixels, get the offset from the top row
-        for y in range(height):
+        for y in range(height-1):
             pink = 0
             for x in range(width):
                 pixel = pixels[x, y]
