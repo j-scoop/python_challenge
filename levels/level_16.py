@@ -1,6 +1,8 @@
 from pathlib import Path
 from PIL import Image
 
+from utils.helpers import get_image_metadata
+
 
 # level url: http://www.pythonchallenge.com/pcc/return/mozart.html
 # Level title: "let me get this straight"
@@ -23,30 +25,8 @@ IMAGE_PATH = Path("data/level_16/mozart.gif")
 OUTPUT_PATH = Path("data/level_16/output/output.gif")
 
 
-def get_image_metadata(img_path):
-
-    with Image.open(img_path) as im:
-
-        # What metadata can we get from the image?
-        width, height = im.size
-
-        print(f'{width=}, {height=}')
-
-        print(f"{im.format=}, {im.size=}, {im.mode=}")
-
-        print(f"{im.n_frames=}")
-
-        metadata = im.info
-        for key, value in metadata.items():
-            print(f"{key=}, {value=}")
-
-
-def wrap_subtract_coords(x_coord, offset, limit):
+def get_adjusted_coordinate(x_coord, offset, limit):
     return (x_coord - offset) % limit
-
-
-def is_match():
-    pass
 
 
 def straighten_pixels(img_path):
@@ -57,10 +37,7 @@ def straighten_pixels(img_path):
         if im.mode == "P":
             im = im.convert("RGB")
 
-        # What metadata can we get from the image?
         width, height = im.size
-
-        print(im.format, im.size, im.mode)
 
         pixels = im.load()
 
@@ -70,30 +47,25 @@ def straighten_pixels(img_path):
 
         offset_values = {}
 
-        # For each row of pixels, get the offset from the top row
+        # For each row of pixels, get the offset of the pink pixels from 0 position
         for y in range(height):
             for x in range(width):
                 pixel = pixels[x, y]
 
-                # Handle end of row
-                if x < 637:
-                    if pixels[x+1, y] == (255, 0, 255):
-                        current_offset = -x
-                        offset_values[y] = current_offset
+                if pixels[x, y] == (255, 0, 255):
+                    current_offset = -x
+                    offset_values[y] = current_offset
 
                 output_pixels[x, y] = pixel
 
             if offset_values.get(y) is None:
                 offset_values[y] = 0
 
-        print(f"{len(offset_values)=}")
-        # print(f"{offset_values[459]=}")
-
-        # For each row of pixels, get the offset from the top row
+        # For each row of pixels, write according to the offset
         for y in range(height):
             for x in range(width):
 
-                current_offset = wrap_subtract_coords(x, offset_values[y], width)
+                current_offset = get_adjusted_coordinate(x, offset_values[y], width)
                 output_pixels[x, y] = im.getpixel((current_offset, y))
 
         output_image.save(OUTPUT_PATH)
@@ -103,6 +75,7 @@ def main():
     get_image_metadata(IMAGE_PATH)
 
     straighten_pixels(IMAGE_PATH)
+
 
 if __name__ == "__main__":
     main()
