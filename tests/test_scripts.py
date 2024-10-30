@@ -32,6 +32,8 @@ class TestScriptsRun(unittest.TestCase):
             "levels.level_12",
             "levels.level_13",
             "levels.level_14",
+            "levels.level_15",
+            "levels.level_16",
         ]
 
         for script in scripts:
