@@ -1,33 +1,6 @@
 from PIL import Image, ExifTags
 
 
-# def get_image_metadata(img_path):
-
-#     with Image.open(img_path) as im:
-
-#         # What metadata can we get from the image?
-#         width, height = im.size
-
-#         print(f"{width=}, {height=}")
-
-#         print(f"{im.format=}, {im.size=}, {im.mode=}")
-
-#         if im.format == "GIF":
-#             print(f"{im.n_frames=}")
-
-#         metadata = im.info
-#         for key, value in metadata.items():
-#             print(f"{key=}, {value=}")
-
-#         # Extract EXIF data if available
-#         exif_data = im.getexif()
-#         if exif_data:
-#             exif = {}
-#             for tag, value in exif_data.items():
-#                 decoded_tag = ExifTags.TAGS.get(tag, tag)
-#                 exif[decoded_tag] = value
-#             metadata['exif'] = exif
-
 def get_image_metadata(image_path):
     metadata = {}
 
