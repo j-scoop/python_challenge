@@ -42,7 +42,7 @@ def parse_xml(url):
     if response.status_code == 200:
         print(response.content)
 
-    # Failing xmlrpc implementation below:
+    # Failing xmlrpc implementation below (doesn't work on Python 3.10):
     # with xmlrpc.client.ServerProxy(url) as client:
 
     #     try:

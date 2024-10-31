@@ -1,6 +1,9 @@
 from pathlib import Path
 from PIL import Image
 
+from utils.helpers import get_image_metadata
+
+
 # level url: http://www.pythonchallenge.com/pc/def/oxygen.html
 
 # Webpage title: smarty
@@ -15,49 +18,26 @@ def process_image(img_path):
     Process an image and get value of grey pixels
     """
 
+    metadata = get_image_metadata(img_path)
+    width, height = metadata["size"]
+
     all_grey_pixels = []
     grey_pixels = []
 
     with Image.open(img_path) as im:
-        # What metadata can we get from the image?
-
-        width, height = im.size
-
-        print(im.format, im.size, im.mode)
-
-        metadata = im.info
-        for key, value in metadata.items():
-            print(f"{key=}, {value=}")
 
         # Loop over pixels and find grey ones
         # Only loop over the middle row
         y_middle = height / 2
         for x in range(width):
-            # for y in range(height):
             r, g, b, a = im.getpixel((x, y_middle))
             if r == g == b:
                 all_grey_pixels.append(r)
-                # print(r, g, b, a)
                 # if r not in grey_pixels:
                 if (r, g, b, a) != im.getpixel((x + 1, y_middle)):
                     grey_pixels.append(r)
 
-        print(f"{grey_pixels=}")
-
-        # convert to unicode chars
-        for pixel in grey_pixels:
-            print(chr(pixel), end="")
-        print()
-
-        for pixel in all_grey_pixels:
-            print(chr(pixel), end="")
-        print()
-
         ouptut_list = [105, 110, 116, 101, 103, 114, 105, 116, 121]
-
-        for num in ouptut_list:
-            print(chr(all_grey_pixels[num]), end="")
-        print()
 
         for num in ouptut_list:
             print(chr(num), end="")

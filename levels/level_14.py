@@ -1,6 +1,8 @@
 from pathlib import Path
 from PIL import Image
 
+from utils.helpers import get_image_metadata
+
 
 # Level url: http://www.pythonchallenge.com/pc/return/italy.html
 # Level title: "walk around"
@@ -27,17 +29,11 @@ def process_image(img_path):
     This function doesn't solve the level, but it does output an image with a hint
     """
 
+    metadata = get_image_metadata(img_path)
+
+    width, height = metadata["size"]
+
     with Image.open(img_path) as im:
-
-        # What metadata can we get from the image?
-        width, height = im.size
-
-        print(f"{width=}, {height=}")
-        print(im.format, im.size, im.mode)
-
-        metadata = im.info
-        for key, value in metadata.items():
-            print(f"{key=}, {value=}")
 
         pixels = im.load()
 
@@ -68,11 +64,11 @@ def uzumaki(img_path):
     This function sovles the level. Praise the spiral.
     """
 
-    with Image.open(img_path) as im:
-        # What metadata can we get from the image?
-        width, height = im.size
+    metadata = get_image_metadata(img_path)
 
-        print(im.format, im.size, im.mode)
+    width, height = metadata["size"]
+
+    with Image.open(img_path) as im:
 
         pixels = im.load()
 
@@ -94,17 +90,14 @@ def uzumaki(img_path):
             # Write each line by spiralling round the output image clockwise
 
             if direction == "right":
-                print(f"{limits['right']=}")
                 if out_x < limits["right"]:
                     output_pixels[out_x, out_y] = pixel
                     out_x += 1
                 else:
-                    print(f"{out_x=}")
                     # We've reached the end, write the pixel,
                     # decrease the right limit & change direction
                     output_pixels[out_x, out_y] = pixel
                     limits["right"] -= 1
-                    print(f"{limits['right']=}")
                     direction = "down"
                     # We are finished with the row, so increment y
                     out_y += 1
@@ -150,8 +143,6 @@ def uzumaki(img_path):
 
 
 def main():
-    # process_image(WIRE_IMG_PATH)
-
     uzumaki(WIRE_IMG_PATH)
 
 

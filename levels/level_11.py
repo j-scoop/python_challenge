@@ -1,6 +1,8 @@
 from pathlib import Path
 from PIL import Image
 
+from utils.helpers import get_image_metadata
+
 
 # level url: http://www.pythonchallenge.com/pc/return/5808.html
 # Page title: "odd even"
@@ -26,14 +28,7 @@ def process_image(img_path):
 
     with Image.open(img_path) as im:
 
-        # What metadata can we get from the image?
         width, height = im.size
-
-        print(im.format, im.size, im.mode)
-
-        metadata = im.info
-        for key, value in metadata.items():
-            print(f"{key=}, {value=}")
 
         pixels = im.load()
 
@@ -64,6 +59,8 @@ def process_image(img_path):
 
 
 def main():
+    get_image_metadata(IMAGE_PATH)
+
     process_image(IMAGE_PATH)
 
 

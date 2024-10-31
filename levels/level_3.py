@@ -3,7 +3,11 @@ import re
 from data.level_3.level_3_text import source as in_str
 
 
-# level url: http://www.pythonchallenge.com/pc/def/equality.html
+# Level url: http://www.pythonchallenge.com/pc/def/equality.html
+# Hint: "One small letter, surrounded by EXACTLY three big bodyguards on each of its sides."
+
+# The idea is to search the text for a lowercase letter followed by 3 upper,
+# one lower, three upper, one lower, e.g. aBCDeFGHi
 
 
 # Initial attempt using for loops. Yes it gets ugly.
