@@ -9,6 +9,7 @@ from data.level_3.level_3_text import source as in_str
 # The idea is to search the text for a lowercase letter followed by 3 upper,
 # one lower, three upper, one lower, e.g. aBCDeFGHi
 
+
 # Initial attempt using for loops. Yes it gets ugly.
 def three_looped():
     out_str = ""
