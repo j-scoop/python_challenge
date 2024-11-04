@@ -1,4 +1,6 @@
 import sys
+import bz2
+import urllib
 from pathlib import Path
 import requests
 from urllib import request
@@ -24,6 +26,10 @@ LEVEL_URL = "http://www.pythonchallenge.com/pc/return/romance.html"
 USERNAME = "huge"
 PASSWORD = "file"
 
+# ENCODED_STRING = b'BZh91AY%26SY%94%3A%E2I%00%00%21%19%80P%81%11%00%AFg%9E%A0%20%00hE%3DM%B5%23%D0%D4%D1%E2%8D%06%A9%FA%26S%D4%D3%21%A1%EAi7h%9B%9A%2B%BF%60%22%C5WX%E1%ADL%80%E8V%3C%C6%A8%DBH%2632%18%A8x%01%08%21%8DS%0B%C8%AF%96KO%CA2%B0%F1%BD%1Du%A0%86%05%92s%B0%92%C4Bc%F1w%24S%85%09%09C%AE%24%90'
+ENCODED_STRING = b'BZh91AY&26SY%94%3A%E2I%00%00%21%19%80P%81%11%00%AFg%9E%A0%20%00hE%3DM%B5%23%D0%D4%D1%E2%8D%06%A9%FA%26S%D4%D3%21%A1%EAi7h%9B%9A%2B%BF%60%22%C5WX%E1%ADL%80%E8V%3C%C6%A8%DBH%2632%18%A8x%01%08%21%8DS%0B%C8%AF%96KO%CA2%B0%F1%BD%1Du%A0%86%05%92s%B0%92%C4Bc%F1w%24S%85%09%09C%AE%24%90'
+ENCODED_STRING = urllib.parse.unquote(ENCODED_STRING.decode('latin1')).encode('latin1')
+
 
 def check_cookies(url):
     response = requests.get(url, auth=(USERNAME, PASSWORD))
@@ -33,8 +39,11 @@ def check_cookies(url):
     for cookie in cookies:
         print(cookie.name, cookie.value)
 
+    return cookies.get('info')
+
 
 def traverse_url(url_key: str, num_items: int):
+    cookies = b""
     visited_urls = []
     for i in range(num_items):
         url = f"http://www.pythonchallenge.com/pc/def/linkedlist.php?busynothing={url_key}"
@@ -42,6 +51,10 @@ def traverse_url(url_key: str, num_items: int):
 
         # Search for digits at end of string
         re_pattern = r"\d+$"
+
+        info_cookie = check_cookies(url)
+        cookies += info_cookie.encode()
+        print(f"{cookies=}")
 
         with request.urlopen(url) as page:
             visited_urls.append(url_key)
@@ -59,11 +72,17 @@ def traverse_url(url_key: str, num_items: int):
                 sys.exit()
 
 
+def decode_bz2(bytes_string):
+    decompressed_str = bz2.decompress(bytes_string)
+
+    return decompressed_str
+
+
 def main():
     get_image_metadata(LEVEL_IMAGE)
 
     # Seem to be no cookies for this level
-    check_cookies("http://www.pythonchallenge.com/pc/def/linkedlist.php")
+    check_cookies("http://www.pythonchallenge.com/pc/def/linkedlist.php?busynothing=12345")
 
     # traverse_url("12345", 400)
 
@@ -76,13 +95,11 @@ def main():
     # Cookie title: 90
     # Cookie title: h
 
-    # Maybe I have to read the cookies rather than the html body to get the next nothing?!
+    # Cookies for the busynothings seem to be alpha chars
+    # They look like a bz2 encoded string!
 
-    # Try inputting these into the busynothing
-
-    # traverse_url("90", 400)
-
-    traverse_url("h", 400)
+    output = decode_bz2(ENCODED_STRING)
+    print(f"{output=}")
 
 
 if __name__ == "__main__":
