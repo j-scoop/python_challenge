@@ -7,7 +7,7 @@ from urllib import request
 import re
 
 from utils.helpers import get_image_metadata
-from levels.level_13 import parse_xml
+from levels.level_13 import xmlrpc_phone_method
 
 
 # Level url: http://www.pythonchallenge.com/pc/return/romance.html
@@ -33,7 +33,7 @@ from levels.level_13 import parse_xml
 
 MOZART_FATHER = "Leopold"
 XML_URL = "http://www.pythonchallenge.com/pc/phonebook.php"
-LEOPOLD_URL  = "http://www.pythonchallenge.com/pc/stuff/violin.php"
+LEOPOLD_URL = "http://www.pythonchallenge.com/pc/stuff/violin.php"
 
 LEVEL_IMAGE = Path("data/level_17/input/cookies.jpg")
 LEVEL_URL = "http://www.pythonchallenge.com/pc/return/romance.html"
@@ -115,33 +115,19 @@ def main():
     # Seem to be no cookies for this level
     check_cookies("http://www.pythonchallenge.com/pc/def/linkedlist.php?busynothing=12345")
 
+    # Traverser the urls and get the text from each page's cookies
     # traverse_url("12345", 400)
 
-    # url='http://www.pythonchallenge.com/pc/def/linkedlist.php?busynothing=83051'
-    # Failed to find the next key. Page body: that's it.
-
-    # Cookie of 83051: 
-
-    # The 'busynothings' seem to have cookies.
-    # Cookie title: 90
-    # Cookie title: h
-
-    # Cookies for the busynothings seem to be alpha chars
-    # They look like a bz2 encoded string!
-
+    # Decode the text from the cookies
     decoded_string = urllib.parse.unquote_to_bytes(ENCODED_STRING)
-
     output = decode_bz2(decoded_string)
     print(f"{output=}")
 
-    parse_xml(XML_URL, MOZART_FATHER)
+    # Get Mozart's father's 'phone number'
+    xmlrpc_phone_method(XML_URL, MOZART_FATHER)
 
-    xmlrpc_get_methods(XML_URL)
-
-    get_image_metadata("data/level_17/input/leopold.jpg")
-
+    # Use the 'phone number' (url) to give Mozart's father the message
     cookies = {"info": "the flowers are on their way"}
-
     response = requests.get(LEOPOLD_URL, cookies=cookies)
     print(response.text)
 

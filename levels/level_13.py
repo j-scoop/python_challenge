@@ -22,7 +22,7 @@ EVIL = "Bert"
 XML_URL = "http://www.pythonchallenge.com/pc/phonebook.php"
 
 
-def parse_xml(url, recipient):
+def xmlrpc_phone_method(url, recipient):
 
     xml_request = f"""<?xml version="1.0"?>
     <methodCall>
@@ -53,7 +53,7 @@ def parse_xml(url, recipient):
 
 
 def main():
-    parse_xml(XML_URL, EVIL)
+    xmlrpc_phone_method(XML_URL, EVIL)
 
 
 if __name__ == "__main__":
