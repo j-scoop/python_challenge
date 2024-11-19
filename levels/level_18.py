@@ -27,6 +27,7 @@ def compare_split_image(img_path):
 
         pixels = im.load()
 
+        # Loop over the pixels for each half
         for x in range(img_2_index):
             for y in range(height):
                 img_1_pixel = pixels[x, y]
@@ -35,7 +36,10 @@ def compare_split_image(img_path):
                 print(f"{img_1_pixel=}")
                 print(f"{img_2_pixel=}")
 
-    # Loop over the pixels for each half
+                diff_r, diff_g, diff_b = img_2_pixel - img_1_pixel
+                print(f"{diff_r=}")
+                print(f"{diff_g=}")
+                print(f"{diff_b=}")
 
     # Get the difference between each pixel
 
