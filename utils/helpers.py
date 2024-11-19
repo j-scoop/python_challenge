@@ -1,3 +1,5 @@
+import bz2
+import requests
 from PIL import Image, ExifTags
 
 
@@ -39,3 +41,43 @@ def get_image_metadata(image_path):
         print(f"{key}: {value}")
 
     return metadata
+
+
+def check_cookies(url):
+    """
+    Prints a webpage's cookies and returns the 'info' cookie
+    if it exists
+    """
+    response = requests.get(url)
+
+    cookies = response.cookies
+    print(f"{cookies=}")
+    for cookie in cookies:
+        print(cookie.name, cookie.value)
+
+    return cookies.get("info")
+
+
+def decode_bz2(bytes_string):
+    decompressed_str = bz2.decompress(bytes_string)
+
+    return decompressed_str
+
+
+def xmlrpc_get_methods(url):
+
+    xml_request = """<?xml version="1.0"?>
+    <methodCall>
+        <methodName>system.methodSignature</methodName>
+    <params>
+        <param><value><string>phone</string></value></param>
+    </params>
+    </methodCall>
+    """
+
+    response = requests.post(
+        url, data=xml_request, headers={"Content-Type": "text/xml"}
+    )
+
+    if response.status_code == 200:
+        print(response.content)
