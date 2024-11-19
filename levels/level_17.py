@@ -1,12 +1,11 @@
 import sys
-import bz2
 import urllib
 from pathlib import Path
 import requests
 from urllib import request
 import re
 
-from utils.helpers import get_image_metadata
+from utils.helpers import get_image_metadata, check_cookies, decode_bz2
 from levels.level_13 import xmlrpc_phone_method
 
 
@@ -41,17 +40,6 @@ USERNAME = "huge"
 PASSWORD = "file"
 
 
-def check_cookies(url):
-    response = requests.get(url, auth=(USERNAME, PASSWORD))
-
-    cookies = response.cookies
-    print(f"{cookies=}")
-    for cookie in cookies:
-        print(cookie.name, cookie.value)
-
-    return cookies.get('info')
-
-
 def traverse_url(url_key: str, num_items: int):
     cookies_bytes = b""
     visited_urls = []
@@ -80,31 +68,6 @@ def traverse_url(url_key: str, num_items: int):
             else:
                 print(f"Failed to find the next key. Page body: {page_text}")
                 return cookies_bytes
-
-
-def decode_bz2(bytes_string):
-    decompressed_str = bz2.decompress(bytes_string)
-
-    return decompressed_str
-
-
-def xmlrpc_get_methods(url):
-
-    xml_request = """<?xml version="1.0"?>
-    <methodCall>
-        <methodName>system.methodSignature</methodName>
-    <params>
-        <param><value><string>phone</string></value></param>
-    </params>
-    </methodCall>
-    """
-
-    response = requests.post(
-        url, data=xml_request, headers={"Content-Type": "text/xml"}
-    )
-
-    if response.status_code == 200:
-        print(response.content)
 
 
 def main():
