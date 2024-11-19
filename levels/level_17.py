@@ -55,7 +55,7 @@ def check_cookies(url):
 
 
 def traverse_url(url_key: str, num_items: int):
-    cookies = b""
+    cookies_bytes = b""
     visited_urls = []
     for i in range(num_items):
         url = f"http://www.pythonchallenge.com/pc/def/linkedlist.php?busynothing={url_key}"
@@ -65,8 +65,8 @@ def traverse_url(url_key: str, num_items: int):
         re_pattern = r"\d+$"
 
         info_cookie = check_cookies(url)
-        cookies += info_cookie.encode()
-        print(f"{cookies=}")
+        cookies_bytes += info_cookie.encode()
+        print(f"{cookies_bytes=}")
 
         with request.urlopen(url) as page:
             visited_urls.append(url_key)
@@ -81,7 +81,7 @@ def traverse_url(url_key: str, num_items: int):
                     sys.exit()
             else:
                 print(f"Failed to find the next key. Page body: {page_text}")
-                sys.exit()
+                return cookies_bytes
 
 
 def decode_bz2(bytes_string):
@@ -112,14 +112,14 @@ def xmlrpc_get_methods(url):
 def main():
     get_image_metadata(LEVEL_IMAGE)
 
-    # Seem to be no cookies for this level
-    check_cookies("http://www.pythonchallenge.com/pc/def/linkedlist.php?busynothing=12345")
-
     # Traverser the urls and get the text from each page's cookies
-    # traverse_url("12345", 400)
+    cookie_bytes = traverse_url("12345", 400)
+    print(f"{cookie_bytes=}")
 
     # Decode the text from the cookies
-    decoded_string = urllib.parse.unquote_to_bytes(ENCODED_STRING)
+    decoded_string = urllib.parse.unquote_to_bytes(cookie_bytes)
+    print(f"{decoded_string=}")
+
     output = decode_bz2(decoded_string)
     print(f"{output=}")
 
