@@ -14,7 +14,7 @@ from levels.level_13 import xmlrpc_phone_method
 
 # Image is a photo of some choc chip cookies with a small photo of
 # some wooden men with a saw, cutting a log in the left corner
-# The saw men image is from level 4! 
+# The saw men image is from level 4!
 # Level 4 cookies state using 'busynothing' - let's try level 4
 # solution with 'busynothing' in place of 'nothing'
 

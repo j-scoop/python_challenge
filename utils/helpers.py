@@ -55,7 +55,7 @@ def check_cookies(url):
     for cookie in cookies:
         print(cookie.name, cookie.value)
 
-    return cookies.get('info')
+    return cookies.get("info")
 
 
 def decode_bz2(bytes_string):
