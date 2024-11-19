@@ -29,8 +29,11 @@ def compare_split_image(img_path):
 
         for x in range(img_2_index):
             for y in range(height):
-                img_1_pixel = pixels.get(x, y)
-                img_2_pixel = pixels.get(x + img_2_index, y)
+                img_1_pixel = pixels[x, y]
+                img_2_pixel = pixels[x + img_2_index, y]
+
+                print(f"{img_1_pixel=}")
+                print(f"{img_2_pixel=}")
 
     # Loop over the pixels for each half
 
