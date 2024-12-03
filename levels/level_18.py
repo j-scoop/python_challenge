@@ -3,7 +3,7 @@ from utils.helpers import get_image_metadata
 from PIL import Image
 
 
-# Level url: http://www.pythonchallenge.com/pc/def/balloons.html
+# Level url: http://www.pythonchallenge.com/pc/return/balloons.html
 # Level title: "can you tell the difference?"
 # Comment: "<!-- it is more obvious that what you might think -->"
 # Typo? that/than?
